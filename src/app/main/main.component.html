@@ -4,26 +4,19 @@
 
 
 <ng-template #content>
-    <div class="p-4">
-        <!-- <h3 class="text-lg font-semibold">From <span *ngIf="selectedFromCurrency.name">{{selectedFromCurrency.name}}</span></h3> -->
-        <p>{{fromValue + ' ' + selectedFromCurrency.name + ' equals'}}</p>
+    <app-currency-block
+        [currencyData]="currencyData"
+        [value]="fromValue"
+        [selectedCurrency]="selectedFromCurrency"
+        (onCurrencyChange)="handleCurrencyChange($event.value, 'from')"
+    ></app-currency-block>
 
-        <p-inputNumber 
-            styleClass="pr-2 pt-1"
-            inputId="integeronly" 
-            [(ngModel)]="fromValue" /> 
-        <p-dropdown
-            [filter]="true"
-            filterBy="name" 
-            [options]="currencyData"
-            [(ngModel)]="selectedFromCurrency"
-            optionLabel="name"
-            placeholder="Select a currency"
-            (onChange)="handleSelect($event)"
-        >
-        </p-dropdown>
-
-    </div>
+    <app-currency-block
+        [currencyData]="currencyData"
+        [value]="fromValue"
+        [selectedCurrency]="selectedToCurrency"
+        (onCurrencyChange)="handleCurrencyChange($event.value, 'from')"
+    ></app-currency-block>
 
 
 </ng-template>

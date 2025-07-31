@@ -8,11 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { CurrencyBlockComponent } from './shared-components/currency-block/currency-block.component';
+import { CurrencyObject } from '../types/types';
+
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule, DropdownModule, ProgressSpinnerModule,InputNumberModule, FormsModule, BrowserAnimationsModule],
+  imports: [CommonModule, ProgressSpinnerModule, BrowserAnimationsModule, CurrencyBlockComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
@@ -20,7 +23,8 @@ export class MainComponent implements OnInit{
 
   currencyData: any[] = []
   fromValue:number = 1;
-  selectedFromCurrency: any = {};
+  selectedFromCurrency: CurrencyObject | null = null;
+  selectedToCurrency: CurrencyObject | null = null;
   errorMessage: string | null = null;
 
   isLoadingDropdown: boolean = false;
@@ -40,8 +44,9 @@ export class MainComponent implements OnInit{
       next: (data) => {
         this.currencyData = data.response;
         console.log('currency data', this.currencyData)
-        this.selectedFromCurrency = this.currencyData.find((item) => item.name === 'Pound Sterling');
-        console.log('selected', this.selectedFromCurrency)
+       if(this.currencyData){
+        this.selectDefaultCurrencies()
+       }
         this.errorMessage = null;
         this.isLoadingDropdown = false;
       },
@@ -54,7 +59,21 @@ export class MainComponent implements OnInit{
     })
   }
 
+  selectDefaultCurrencies(){
+     this.selectedFromCurrency = this.currencyData.find((item) => item.name === 'Pound Sterling');
+        console.log('selected', this.selectedFromCurrency)
+
+        this.selectedToCurrency = this.currencyData.find((item) => item.name === 'Euro')
+        console.log('selected from currency', this.selectedToCurrency)
+  }
+
   handleSelect(item: any){
     console.log(item)
+  }
+
+  handleCurrencyChange(selectedCurrency: any, type: 'from' | 'to'){
+    console.log('handleCurrencyChange')
+    console.log(selectedCurrency)
+    console.log(type)
   }
 }
