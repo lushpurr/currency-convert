@@ -1,17 +1,30 @@
-<p>Currency converter</p>
+<h2 class="text-xl font-bold bg-slate-100 p-2 rounded-lg">Currency converter</h2>
 
 <p-progressSpinner *ngIf="isLoadingDropdown else content"></p-progressSpinner>
 
 
 <ng-template #content>
-    <p-dropdown
-        [options]="currencyData"
-        [(ngModel)]="selectedCurrency"
-        optionLabel="name"
-        placeholder="Select a currency"
-        (onChange)="handleSelect($event)"
-    >
-    </p-dropdown>
+    <div class="p-4">
+        <!-- <h3 class="text-lg font-semibold">From <span *ngIf="selectedFromCurrency.name">{{selectedFromCurrency.name}}</span></h3> -->
+        <p>{{fromValue + ' ' + selectedFromCurrency.name + ' equals'}}</p>
+
+        <p-inputNumber 
+            styleClass="pr-2 pt-1"
+            inputId="integeronly" 
+            [(ngModel)]="fromValue" /> 
+        <p-dropdown
+            [filter]="true"
+            filterBy="name" 
+            [options]="currencyData"
+            [(ngModel)]="selectedFromCurrency"
+            optionLabel="name"
+            placeholder="Select a currency"
+            (onChange)="handleSelect($event)"
+        >
+        </p-dropdown>
+
+    </div>
+
 
 </ng-template>
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../services/data/data.service';
-import { DropdownModule } from "primeng/dropdown";
+import { DropdownModule } from 'primeng/dropdown';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { FormsModule } from '@angular/forms';
@@ -11,14 +12,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [CommonModule, DropdownModule, ProgressSpinnerModule, FormsModule, BrowserAnimationsModule],
+  imports: [CommonModule, DropdownModule, ProgressSpinnerModule,InputNumberModule, FormsModule, BrowserAnimationsModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
 export class MainComponent implements OnInit{
 
   currencyData: any[] = []
-  selectedCurrency: any = {};
+  fromValue:number = 1;
+  selectedFromCurrency: any = {};
   errorMessage: string | null = null;
 
   isLoadingDropdown: boolean = false;
@@ -38,6 +40,8 @@ export class MainComponent implements OnInit{
       next: (data) => {
         this.currencyData = data.response;
         console.log('currency data', this.currencyData)
+        this.selectedFromCurrency = this.currencyData.find((item) => item.name === 'Pound Sterling');
+        console.log('selected', this.selectedFromCurrency)
         this.errorMessage = null;
         this.isLoadingDropdown = false;
       },
