@@ -5,6 +5,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CurrencyObject } from 'src/app/types/types';
 
 @Component({
   selector: 'app-currency-block',
@@ -14,10 +15,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   styleUrl: './currency-block.component.scss'
 })
 export class CurrencyBlockComponent {
-  @Input() currencyData: any | null;
+  @Input() currencyData: CurrencyObject[] | undefined = undefined;
   @Input() value: number = 1;
   @Input() selectedCurrency: any; 
-  @Output() onCurrencyChange = new EventEmitter()
+  @Output() onCurrencyChange = new EventEmitter<CurrencyObject>()
 
 
 

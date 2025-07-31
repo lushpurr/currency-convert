@@ -8,14 +8,14 @@
         [currencyData]="currencyData"
         [value]="fromValue"
         [selectedCurrency]="selectedFromCurrency"
-        (onCurrencyChange)="handleCurrencyChange($event.value, 'from')"
+        (onCurrencyChange)="handleCurrencyChange($event, 'from')"
     ></app-currency-block>
 
     <app-currency-block
         [currencyData]="currencyData"
         [value]="fromValue"
         [selectedCurrency]="selectedToCurrency"
-        (onCurrencyChange)="handleCurrencyChange($event.value, 'from')"
+        (onCurrencyChange)="handleCurrencyChange($event, 'from')"
     ></app-currency-block>
 
 

@@ -71,7 +71,7 @@ export class MainComponent implements OnInit{
     console.log(item)
   }
 
-  handleCurrencyChange(selectedCurrency: any, type: 'from' | 'to'){
+  handleCurrencyChange(selectedCurrency: CurrencyObject, type: 'from' | 'to'){
     console.log('handleCurrencyChange')
     console.log(selectedCurrency)
     console.log(type)
