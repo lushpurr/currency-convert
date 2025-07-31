@@ -1,1 +1,18 @@
-<p>main works!</p>
+<p>Currency converter</p>
+
+<p-progressSpinner *ngIf="isLoadingDropdown else content"></p-progressSpinner>
+
+
+<ng-template #content>
+    <p-dropdown
+        [options]="currencyData"
+        [(ngModel)]="selectedCurrency"
+        optionLabel="name"
+        placeholder="Select a currency"
+        (onChange)="handleSelect($event)"
+    >
+    </p-dropdown>
+
+</ng-template>
+
+

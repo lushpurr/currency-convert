@@ -19,10 +19,11 @@ export class DataService {
 
   fetchCurrencyData(): Observable<any>{
     // https://api.currencybeacon.com/v1/latest?api_key=YOUR_API_KEY
+    const currencyType = 'flat';
 
     return this.http
-      .get(`${this.apiUrl}?api_key=${this.apiKey}`)
-      .pipe(catchError(this.handleError))
+      .get(`${this.apiUrl}?type=${currencyType}&api_key=${this.apiKey}`)
+      .pipe(catchError(this.handleError));
   
   }
 
