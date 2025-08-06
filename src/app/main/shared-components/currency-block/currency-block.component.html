@@ -1,11 +1,11 @@
-    <div  class="p-4 min-w-">
-        <!-- <h3 class="text-lg font-semibold">From <span *ngIf="selectedFromCurrency.name">{{selectedFromCurrency.name}}</span></h3> -->
-        <!-- <p>{{value + ' ' + selectedCurrency.name + ' equals'}}</p> -->
-
+    <div  class="p-4">
         <p-inputNumber 
             styleClass="pr-2 pt-1"
             inputId="integeronly" 
-            [(ngModel)]="value" /> 
+            [(ngModel)]="value" 
+            (onInput)="handleChanges()"
+            [min]="0"
+        /> 
         <p-dropdown
             styleClass="min-w-[290px]"
             [filter]="true"
@@ -14,8 +14,6 @@
             [(ngModel)]="selectedCurrency"
             optionLabel="name"
             placeholder="Select a currency"
-            (onChange)="handleSelect($event)"
-        >
-        </p-dropdown>
-
+            (onChange)="handleChanges()"
+        />
     </div>

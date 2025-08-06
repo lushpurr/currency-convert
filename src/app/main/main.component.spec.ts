@@ -60,7 +60,7 @@ describe('MainComponent', () => {
     const mockRate = { value: 123.45 };
     dataService.calculateCurrencyValue.and.returnValue(of(mockRate));
 
-    component.getRate('GBP', 'EUR', 1);
+    component.getRate('GBP', 'EUR', 1, 'from');
 
     expect(component.toValue).toBe(123.45);
   });
