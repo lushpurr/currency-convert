@@ -3,7 +3,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 // import { MainComponent } from './app/main/main.component';
 import { AppComponent } from './app/app.component';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 bootstrapApplication(AppComponent, {
-  providers: [provideHttpClient()]
+  providers: [provideHttpClient(), provideAnimations()]
 }).catch(err => console.error(err));
