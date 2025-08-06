@@ -1,19 +1,29 @@
-    <div  class="p-4">
-        <p-inputNumber 
-            styleClass="pr-2 pt-1"
-            inputId="integeronly" 
-            [(ngModel)]="value" 
-            (onInput)="handleChanges()"
-            [min]="0"
-        /> 
-        <p-dropdown
-            styleClass="min-w-[290px]"
-            [filter]="true"
-            filterBy="name" 
-            [options]="currencyData"
-            [(ngModel)]="selectedCurrency"
-            optionLabel="name"
-            placeholder="Select a currency"
-            (onChange)="handleChanges()"
-        />
+    <div  class="p-4 flex flex-row gap-4">
+        <div class="flex flex-col gap-1">
+            <label for="value">Value</label>
+            <p-inputNumber 
+                styleClass="pr-2 pt-1"
+                inputId="value" 
+                [(ngModel)]="value" 
+                (onInput)="handleChanges()"
+                [min]="0"
+            /> 
+        </div>
+        <div class="flex flex-col gap-1">
+            <label for="selectCurrency">Currency</label>
+            <p-dropdown
+                inputId="selectCurrency"
+                styleClass="min-w-[290px]"
+                [filter]="true"
+                filterBy="name" 
+                [options]="currencyData"
+                [(ngModel)]="selectedCurrency"
+                optionLabel="name"
+                placeholder="Select a currency"
+                (onChange)="handleChanges()"
+            />
+        </div>
+  
+        
+
     </div>
