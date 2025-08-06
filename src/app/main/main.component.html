@@ -6,19 +6,19 @@
 <ng-template #content>
     <app-currency-block
         [currencyData]="currencyData"
-        [value]="fromValue"
-        [selectedCurrency]="selectedFromCurrency"
-        (onCurrencyChange)="handleCurrencyChange($event, 'from')"
+        [value]="store.fromValue()"
+        [selectedCurrency]="store.selectedFromCurrency()"
+        (currencyChange)="handleCurrencyChange($event, 'from')"
     ></app-currency-block>
 
     <app-currency-block
         [currencyData]="currencyData"
-        [value]="toValue"
-        [selectedCurrency]="selectedToCurrency"
-        (onCurrencyChange)="handleCurrencyChange($event, 'to')"
+        [value]="store.toValue()"
+        [selectedCurrency]="store.selectedToCurrency()"
+        (currencyChange)="handleCurrencyChange($event, 'to')"
     ></app-currency-block>
 
-
+    <app-conversion-result></app-conversion-result>
 </ng-template>
 
 

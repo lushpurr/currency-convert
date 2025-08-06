@@ -12,15 +12,17 @@ import { SharedImports, SharedPrimeNgImports } from 'src/app/shared/shared-impor
   styleUrl: './currency-block.component.scss'
 })
 export class CurrencyBlockComponent {
-  @Input() currencyData: CurrencyObject[] | undefined = undefined;
+
+ 
+  @Input() currencyData: CurrencyObject[] | [] = [];
   @Input() value: number | null = 0;
-  @Input() selectedCurrency: CurrencyObject | undefined; 
-  @Output() onCurrencyChange = new EventEmitter<{value: number, currency: CurrencyObject}>()
+  @Input() selectedCurrency: CurrencyObject | null = null; 
+  @Output() currencyChange = new EventEmitter<{value: number, currency: CurrencyObject}>()
 
 
   handleChanges(){
     if(this.selectedCurrency && this.value !== null){
-      this.onCurrencyChange.emit({
+      this.currencyChange.emit({
         value: this.value,
         currency: this.selectedCurrency
       })
