@@ -1,4 +1,6 @@
 <div class="p-4 flex flex-col items-center">
-    <div>{{store.fromValue() | currency: store.selectedFromCurrency()?.short_code}} {{store.selectedFromCurrency()?.name}} equals</div>
-    <div class="text-3xl">{{store.toValue() | currency: store.selectedToCurrency()?.short_code}} {{store.selectedToCurrency()?.name}} </div>
+    <div>{{ store.conversionText()}}</div>
+      <div class="text-3xl" *ngIf="store.toDisplay() as to">
+        {{ to.value | currency: to.code }} {{ to.name }}
+    </div>
 </div>
