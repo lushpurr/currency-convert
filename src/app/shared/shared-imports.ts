@@ -2,9 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button'
 import { DropdownModule } from 'primeng/dropdown'
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-
-
-import { HttpClientModule } from '@angular/common/http';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 
 export const SharedImports = [
@@ -14,6 +12,7 @@ export const SharedImports = [
 export const SharedPrimeNgImports = [
     ButtonModule,
     DropdownModule, 
-    ProgressSpinnerModule
+    ProgressSpinnerModule,
+    InputNumberModule
 
 ]
