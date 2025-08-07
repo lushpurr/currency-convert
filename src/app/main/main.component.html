@@ -1,24 +1,29 @@
-<h2 class="text-xl font-bold bg-slate-100 p-2 rounded-lg">Currency converter</h2>
-
-<p-progressSpinner *ngIf="isLoadingDropdown else content"></p-progressSpinner>
 
 
-<ng-template #content>
-    <app-currency-block
-        [currencyData]="currencyData"
-        [value]="store.fromValue()"
-        [selectedCurrency]="store.selectedFromCurrency()"
-        (currencyChange)="handleCurrencyChange($event, 'from')"
-    ></app-currency-block>
+<div class="bg-amber-100 rounded-lg">
+    <h2 class="text-xl font-bold bg-slate-100 p-2 rounded-t-lg text-center">Currency Converter</h2>
 
-    <app-currency-block
-        [currencyData]="currencyData"
-        [value]="store.toValue()"
-        [selectedCurrency]="store.selectedToCurrency()"
-        (currencyChange)="handleCurrencyChange($event, 'to')"
-    ></app-currency-block>
+    <div  *ngIf="isLoadingDropdown else content" class="place-self-center">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
 
-    <app-conversion-result></app-conversion-result>
-</ng-template>
 
+    <ng-template #content>
+        <app-currency-block
+            [currencyData]="currencyData"
+            [value]="store.fromValue()"
+            [selectedCurrency]="store.selectedFromCurrency()"
+            (currencyChange)="handleCurrencyChange($event, 'from')"
+        ></app-currency-block>
+
+        <app-currency-block
+            [currencyData]="currencyData"
+            [value]="store.toValue()"
+            [selectedCurrency]="store.selectedToCurrency()"
+            (currencyChange)="handleCurrencyChange($event, 'to')"
+        ></app-currency-block>
+
+        <app-conversion-result></app-conversion-result>
+    </ng-template>
+</div>
 

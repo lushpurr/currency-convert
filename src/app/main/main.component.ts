@@ -17,12 +17,7 @@ import { ConversionStore } from '../services/conversion-store/conversion-store.s
 export class MainComponent implements OnInit{
 
   currencyData: CurrencyObject[] | []= []
-  // fromValue:number = 1;
-  // toValue: number = 0;
-  // selectedFromCurrency: CurrencyObject | undefined;
-  // selectedToCurrency: CurrencyObject | undefined;
   errorMessage: string | null = null;
-
   isLoadingDropdown: boolean = false;
 
   constructor(
@@ -43,7 +38,6 @@ export class MainComponent implements OnInit{
         console.log('currency data', this.currencyData)
        if(this.currencyData){
         this.initialiseValues()
-        this.selectDefaultCurrencies()
        }
         this.errorMessage = null;
         this.isLoadingDropdown = false;
@@ -58,22 +52,18 @@ export class MainComponent implements OnInit{
   }
 
   initialiseValues(){
-    this.selectDefaultCurrencies()
+    this.setDefaultCurrency('Pound Sterling', 'from');
+    this.setDefaultCurrency('Euro', 'to')
     this.getRate('GBP', 'EUR', 1, 'from')
   }
 
-  async selectDefaultCurrencies(){
-     const selectedFromCurr = await this.currencyData.find((item) => item.name === 'Pound Sterling');
-     if(selectedFromCurr){
-        this.store.setSelectedFromCurrency(selectedFromCurr);
-     }
+  setDefaultCurrency(name: string, type: 'from' | 'to'){
+    const currency = this.currencyData.find(curr => curr.name === name)
+    if(!currency) return;
 
-    const selectedToCurr = await this.currencyData.find((item) => item.name === 'Euro')
-     if(selectedToCurr){
-      this.store.setSelectedToCurrency(selectedToCurr);
-     }
-
-   
+    type === 'from'
+      ? this.store.setSelectedFromCurrency(currency)
+      : this.store.setSelectedToCurrency(currency)
   }
 
   getRate(selectedFromCurrency: string, selectedToCurrency: string, amount: number, type: 'from' | 'to'){
@@ -97,58 +87,36 @@ export class MainComponent implements OnInit{
     })
   }
 
+  hasRequiredValues(): boolean {
+    return !!(this.store.selectedFromCurrency() && this.store.selectedToCurrency() && this.store.fromValue())
+  }
+
   handleCurrencyChange(updatedCurrency: {value: number, currency: CurrencyObject}, type: 'from' | 'to') {
     console.log('handle currency change')
-  if (type === 'from') {
-    this.store.setSelectedFromCurrency(updatedCurrency.currency);
-    this.store.setFromValue(updatedCurrency.value);
+    if (type === 'from') {
+      this.store.setSelectedFromCurrency(updatedCurrency.currency);
+      this.store.setFromValue(updatedCurrency.value);
 
-    if (this.store.selectedFromCurrency() && this.store.selectedToCurrency() && this.store.fromValue()) {
-      this.getRate(
-        this.store.selectedFromCurrency()!.short_code,
-        this.store.selectedToCurrency()!.short_code,
-        this.store.fromValue(),
-        'from'
-      );
-    }
-  } else {
-    this.store.setSelectedToCurrency(updatedCurrency.currency);
-    this.store.setToValue(updatedCurrency.value);
+      if (this.hasRequiredValues()) {
+        this.getRate(
+          this.store.selectedFromCurrency()!.short_code,
+          this.store.selectedToCurrency()!.short_code,
+          this.store.fromValue(),
+          type
+        );
+      }
+    } else {
+      this.store.setSelectedToCurrency(updatedCurrency.currency);
+      this.store.setToValue(updatedCurrency.value);
 
-    if (this.store.selectedFromCurrency() && this.store.selectedToCurrency() && this.store.toValue()) {
-      this.getRate(
-        this.store.selectedToCurrency()!.short_code,
-        this.store.selectedFromCurrency()!.short_code,
-        this.store.toValue(),
-        'to'
-      );
+      if (this.hasRequiredValues()) {
+        this.getRate(
+          this.store.selectedToCurrency()!.short_code,
+          this.store.selectedFromCurrency()!.short_code,
+          this.store.toValue(),
+          type
+        );
+      }
     }
   }
-}
-
-
-
-  // handleCurrencyChange(updatedCurrency: {value: number, currency:CurrencyObject}, type: 'from' | 'to'){
-  //   console.log('handleCurrencyChange')
-  //   console.log(updatedCurrency)
-  //   console.log(type)
-  //   if(type === 'from'){ 
-  //     this.selectedFromCurrency = updatedCurrency.currency
-  //     this.fromValue = updatedCurrency.value;
-  //     // if this is from the 'from' currency object then we need it to be 
-  //     // From currency first
-  //     if(this.selectedFromCurrency && this.selectedToCurrency && this.fromValue){
-  //       this.getRate(this.selectedFromCurrency.short_code, this.selectedToCurrency?.short_code, this.fromValue, type)
-  //     }
-
-  //   } else {
-  //     this.selectedToCurrency = updatedCurrency.currency;
-  //     this.toValue = updatedCurrency.value;
-  //     if(this.selectedFromCurrency && this.selectedToCurrency && this.toValue){
-  //       this.getRate(this.selectedToCurrency?.short_code, this.selectedFromCurrency.short_code, this.toValue, type)
-  //     }
-  //   }
-
-
-  // }
 }

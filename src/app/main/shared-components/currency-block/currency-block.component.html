@@ -1,12 +1,15 @@
-    <div  class="p-4 flex flex-row gap-4">
+    <div  class="p-4 flex sm:flex-row flex-col gap-1 sm:items-end">
         <div class="flex flex-col gap-1">
             <label for="value">Value</label>
             <p-inputNumber 
-                styleClass="pr-2 pt-1"
+                styleClass="min-w-[290px] sm:min-w-0"
                 inputId="value" 
                 [(ngModel)]="value" 
                 (onInput)="handleChanges()"
                 [min]="0"
+                mode="currency"
+                [currency]="selectedCurrency?.short_code"
+                
             /> 
         </div>
         <div class="flex flex-col gap-1">

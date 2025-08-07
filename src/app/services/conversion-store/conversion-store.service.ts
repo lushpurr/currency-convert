@@ -9,11 +9,6 @@ export class ConversionStore {
   selectedFromCurrency = signal<CurrencyObject | null>(null);
   selectedToCurrency = signal<CurrencyObject | null>(null);
 
-  // result = computed(() =>
-  //   this.toValue() ? `${this.fromValue()} converts to ${this.toValue()}` : ''
-  // );
-
-    // Computed signals for template
   fromDisplay = computed(() => {
     const currency = this.selectedFromCurrency();
     const value = this.fromValue();
@@ -23,7 +18,7 @@ export class ConversionStore {
   toDisplay = computed(() => {
     const currency = this.selectedToCurrency();
     const value = this.toValue();
-    return currency ? { value, code: currency.short_code, name: currency.name } : null;
+    return currency && value > 0? { value, code: currency.short_code, name: currency.name } : null;
   });
 
   conversionText = computed(() => {
