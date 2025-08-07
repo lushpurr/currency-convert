@@ -25,7 +25,7 @@ export class ConversionStore {
     const from = this.fromDisplay();
     const to = this.toDisplay();
     if (!from || !to) return '';
-    return `${from.value} ${from.name} equals`;
+    return `${from.value.toFixed(2)} ${from.name} equals`;
   });
 
   setFromValue(value: number) {

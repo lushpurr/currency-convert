@@ -21,6 +21,7 @@ export class CurrencyBlockComponent {
 
 
   handleChanges(){
+    if(!this.value){ this.value = 0}
     if(this.selectedCurrency && this.value !== null){
       this.currencyChange.emit({
         value: this.value,

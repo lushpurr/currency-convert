@@ -6,7 +6,6 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-
   // To ensure security of API Key I created custom API endpoints on Vercel
   private apiUrl="https://my-currency-api-snowy.vercel.app/api/"
 
@@ -15,10 +14,24 @@ export class DataService {
     private http: HttpClient
   ) { }
 
-  
+  saveConversion(fromCurrency: string, toCurrency: string, amount:number, result: number): Observable<any>{
+    const body = {
+      fromCurrency,
+      toCurrency,
+      amount,
+      result
+    }
+
+    console.log('body in save conversion', body)
+
+    return this.http
+      .post(`https://my-currency-api-snowy.vercel.app/api/saveConversion`, body, {
+        headers: { 'Content-Type': 'application/json'  }
+      })
+      .pipe(catchError(this.handleError));
+  }
 
   fetchCurrencyData(): Observable<any>{
-    // https://api.currencybeacon.com/v1/latest?api_key=YOUR_API_KEY
     const currencyType = 'flat';
 
     return this.http
@@ -28,7 +41,6 @@ export class DataService {
   }
 
   calculateCurrencyValue(fromCurrency: string, toCurrency: string, amount: number): Observable<any>{
-    // https://api.currencybeacon.com/v1/convert
     console.log('currency convert input', fromCurrency, toCurrency, amount)
 
     return this.http
