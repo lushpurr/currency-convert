@@ -6,24 +6,46 @@ import { catchError, Observable, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class DataService {
-
-  private apiKey = 'DAIQO2SUmcEW4Zv0FBllkgFz4oLYY55Z';
-  private apiUrl = `https://api.currencybeacon.com/v1/currencies`;
+  // To ensure security of API Key I created custom API endpoints on Vercel
+  private apiUrl="https://my-currency-api-snowy.vercel.app/api/"
 
 
   constructor(
     private http: HttpClient
   ) { }
 
-  
+  saveConversion(fromCurrency: string, toCurrency: string, amount:number, result: number): Observable<any>{
+    const body = {
+      fromCurrency,
+      toCurrency,
+      amount,
+      result
+    }
 
-  fetchCurrencyData(): Observable<any>{
-    // https://api.currencybeacon.com/v1/latest?api_key=YOUR_API_KEY
+    console.log('body in save conversion', body)
 
     return this.http
-      .get(`${this.apiUrl}?api_key=${this.apiKey}`)
-      .pipe(catchError(this.handleError))
+      .post(`https://my-currency-api-snowy.vercel.app/api/saveConversion`, body, {
+        headers: { 'Content-Type': 'application/json'  }
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  fetchCurrencyData(): Observable<any>{
+    const currencyType = 'flat';
+
+    return this.http
+      .get(`${this.apiUrl}currencies?type=${currencyType}`)
+      .pipe(catchError(this.handleError));
   
+  }
+
+  calculateCurrencyValue(fromCurrency: string, toCurrency: string, amount: number): Observable<any>{
+    console.log('currency convert input', fromCurrency, toCurrency, amount)
+
+    return this.http
+      .get(`${this.apiUrl}convert?from=${fromCurrency}&to=${toCurrency}&amount=${amount}`)
+      .pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse){

@@ -1,0 +1,15 @@
+<div *ngIf="store.toDisplay() as to; else spinner" class="p-4 flex flex-col items-center">
+    <div>{{ store.conversionText()}}</div>
+      <div class="text-3xl" >
+        {{ to.value | currency: to.code }} {{ to.name }}
+    </div>
+</div>
+
+<div (click)="saveConversion()">SAVE</div>
+
+
+ <ng-template #spinner>
+  <div class="place-self-center">
+    <p-progressSpinner ></p-progressSpinner>
+  </div>
+ </ng-template>

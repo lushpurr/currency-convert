@@ -1,0 +1,32 @@
+    <div  class="p-4 flex sm:flex-row flex-col gap-1 sm:items-end">
+        <div class="flex flex-col gap-1">
+            <label for="value">Value</label>
+            <p-inputNumber 
+                styleClass="min-w-[290px] sm:min-w-0"
+                inputId="value" 
+                [(ngModel)]="value" 
+                (onInput)="handleChanges()"
+                [min]="0"
+                mode="currency"
+                [currency]="selectedCurrency?.short_code"
+                
+            /> 
+        </div>
+        <div class="flex flex-col gap-1">
+            <label for="selectCurrency">Currency</label>
+            <p-dropdown
+                inputId="selectCurrency"
+                styleClass="min-w-[290px]"
+                [filter]="true"
+                filterBy="name" 
+                [options]="currencyData"
+                [(ngModel)]="selectedCurrency"
+                optionLabel="name"
+                placeholder="Select a currency"
+                (onChange)="handleChanges()"
+            />
+        </div>
+  
+        
+
+    </div>

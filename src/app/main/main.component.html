@@ -1,1 +1,27 @@
-<p>main works!</p>
+<div class="bg-amber-100 rounded-lg">
+    <h2 class="text-xl font-bold bg-slate-100 p-2 rounded-t-lg text-center">Currency Converter</h2>
+
+    <div  *ngIf="isLoadingDropdown else content" class="place-self-center">
+        <p-progressSpinner></p-progressSpinner>
+    </div>
+
+
+    <ng-template #content>
+        <app-currency-block
+            [currencyData]="currencyData"
+            [value]="store.fromValue()"
+            [selectedCurrency]="store.selectedFromCurrency()"
+            (currencyChange)="handleCurrencyChange($event, 'from')"
+        ></app-currency-block>
+
+        <app-currency-block
+            [currencyData]="currencyData"
+            [value]="store.toValue()"
+            [selectedCurrency]="store.selectedToCurrency()"
+            (currencyChange)="handleCurrencyChange($event, 'to')"
+        ></app-currency-block>
+
+        <app-conversion-result></app-conversion-result>
+    </ng-template>
+</div>
+
